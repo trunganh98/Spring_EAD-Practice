@@ -12,19 +12,18 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories(basePackages={"${spring.data.jpa.repository.packages}"})
+@EnableJpaRepositories(basePackages={"com.example.ead_practice.dao"})
 public class DemoDataSourceConfig {
-	
 	@Primary
 	@Bean
-	@ConfigurationProperties(prefix="app.datasource")
-	public DataSource appDataSource() {
-		return DataSourceBuilder.create().build();
+	@ConfigurationProperties(prefix = "app.datasource")
+	public DataSource appDataSource() {return DataSourceBuilder.create().build();
 	}
 
 	@Bean
 	@ConfigurationProperties(prefix="spring.data.jpa.entity")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder, DataSource appDataSource) {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+			EntityManagerFactoryBuilder builder, DataSource appDataSource) {
 		return builder
 				.dataSource(appDataSource)
 				.build();
